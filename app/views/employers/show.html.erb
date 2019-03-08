@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @employer.name %>
+</p>
+
+<p>
+  <strong>Company desc:</strong>
+  <%= @employer.company_desc %>
+</p>
+
+<p>
+  <strong>Employee count:</strong>
+  <%= @employer.employee_count %>
+</p>
+
+<p>
+  <strong>Logo url:</strong>
+  <%= @employer.logo_url %>
+</p>
+
+<p>
+  <strong>Industry:</strong>
+  <%= @employer.industry %>
+</p>
+
+<p>
+  <strong>Founded date:</strong>
+  <%= @employer.founded_date %>
+</p>
+
+<p>
+  <strong>Headquarters address:</strong>
+  <%= @employer.headquarters_address %>
+</p>
+
+<%= link_to 'Edit', edit_employer_path(@employer) %> |
+<%= link_to 'Back', employers_path %>
