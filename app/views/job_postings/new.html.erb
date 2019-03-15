@@ -1,5 +1,5 @@
-<h1>New Job Posting</h1>
+<h1>New Job Posting for <%= @employer.name %> </h1>
 
-<%= render 'form', job_posting: @job_posting %>
+<%= render 'form', job_posting: @job_posting, employer: @employer %>
 
-<%= link_to 'Back', job_postings_path %>
+<%= link_to 'Back', employer_path(@employer) %>
