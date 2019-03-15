@@ -1,4 +1,5 @@
-<%= form_with(model: job_posting, local: true) do |form| %>
+
+<%= form_with(scope: :job_posting, url: employer_job_postings_path) do |form| %>
   <% if job_posting.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(job_posting.errors.count, "error") %> prohibited this job_posting from being saved:</h2>
@@ -32,9 +33,9 @@
   </div>
 
   <div class="field">
-    <%= form.label :employer_id %>
-    <%= form.text_field :employer_id %>
-  </div>
+    
+    <%= form.hidden_field(:employer_id, value: employer.id) %>
+  </div> 
 
   <div class="actions">
     <%= form.submit %>
