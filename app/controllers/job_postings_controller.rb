@@ -1,34 +1,41 @@
 class JobPostingsController < ApplicationController
   before_action :set_job_posting, only: [:show, :edit, :update, :destroy]
 
-  # GET /job_postings
+  # GET /
   # GET /job_postings.json
+  # for showing ALL job postings
   def index
     @job_postings = JobPosting.all
   end
 
-  # GET /job_postings/1
+  # for showing job pustings under an employer
+  # def show_under_employer
+
+  # end
+
+  # GET employer/1/job_postings/1
   # GET /job_postings/1.json
   def show
   end
 
-  # GET /job_postings/new
+  # GET employers/1/job_postings/1/new
   def new
     @job_posting = JobPosting.new
+    @employer = Employer.find(params[:employer_id])
   end
 
-  # GET /job_postings/1/edit
+  # GET employers/1/job_postings/1/edit
   def edit
   end
 
-  # POST /job_postings
+  # POST employers/1/job_postings
   # POST /job_postings.json
   def create
     @job_posting = JobPosting.new(job_posting_params)
 
     respond_to do |format|
       if @job_posting.save
-        format.html { redirect_to @job_posting, notice: 'Job posting was successfully created.' }
+        format.html { redirect_to root_url, notice: 'Job posting was successfully created.' }
         format.json { render :show, status: :created, location: @job_posting }
       else
         format.html { render :new }
@@ -37,7 +44,7 @@ class JobPostingsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /job_postings/1
+  # PATCH/PUT employers/1/job_postings/1
   # PATCH/PUT /job_postings/1.json
   def update
     respond_to do |format|
@@ -51,12 +58,12 @@ class JobPostingsController < ApplicationController
     end
   end
 
-  # DELETE /job_postings/1
+  # DELETE employers/1/job_postings/1
   # DELETE /job_postings/1.json
   def destroy
     @job_posting.destroy
     respond_to do |format|
-      format.html { redirect_to job_postings_url, notice: 'Job posting was successfully destroyed.' }
+      format.html { redirect_to root_url, notice: 'Job posting was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
