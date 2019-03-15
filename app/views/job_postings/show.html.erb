@@ -22,8 +22,8 @@
 
 <p>
   <strong>Employer:</strong>
-  <%= @job_posting.employer %>
+  <%= link_to @job_posting.employer.name, employer_path(@job_posting.employer)%>
 </p>
 
-<%= link_to 'Edit', edit_job_posting_path(@job_posting) %> |
-<%= link_to 'Back', job_postings_path %>
+<%= link_to 'Edit', edit_employer_job_posting_path(@job_posting) %> |
+<%= link_to 'Back', root_path %>
