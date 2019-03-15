@@ -35,5 +35,6 @@
   <%= @employer.headquarters_address %>
 </p>
 
+<%= link_to 'Post a Job', new_employer_job_posting_path(employer_id: @employer.id)%>
 <%= link_to 'Edit', edit_employer_path(@employer) %> |
 <%= link_to 'Back', employers_path %>
