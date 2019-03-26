@@ -24,6 +24,10 @@ class JobPostingsController < ApplicationController
     @employer = Employer.find(params[:employer_id])
   end
 
+  def new_with_unknown_employer
+    @job_posting = JobPosting.new
+    @employers = Employer.all
+  end
   # GET employers/1/job_postings/1/edit
   def edit
   end
@@ -39,6 +43,20 @@ class JobPostingsController < ApplicationController
         format.json { render :show, status: :created, location: @job_posting }
       else
         format.html { render :new }
+        format.json { render json: @job_posting.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def create_with_unknown_employer
+    @job_posting = JobPosting.new(job_posting_params)
+
+    respond_to do |format|
+      if @job_posting.save
+        format.html { redirect_to root_url, notice: 'Job posting was successfully created.' }
+        format.json { render :show, status: :created, location: @job_posting }
+      else
+        format.html { render 'new_with_unknown_employer' }
         format.json { render json: @job_posting.errors, status: :unprocessable_entity }
       end
     end
