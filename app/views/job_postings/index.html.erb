@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<p id="notice">
+  <%= notice %>
+</p>
 
 <h1>Job Postings</h1>
 
@@ -16,20 +18,36 @@
 
   <tbody>
     <% @job_postings.each do |job_posting| %>
-      <tr>
-        <td><%= job_posting.position_name %></td>
-        <td><%= job_posting.position_desc %></td>
-        <td><%= job_posting.location %></td>
-        <td><%= job_posting.benefits %></td>
-        <td><%= job_posting.employer.name %></td>
-        <td><%= link_to 'Show', employer_job_posting_url(employer_id: job_posting.employer_id, id: job_posting.id) %></td>
-        <td><%= link_to 'Edit', edit_employer_job_posting_path(employer_id: job_posting.employer_id, id: job_posting.id) %></td>
-        <td><%= link_to 'Destroy', employer_job_posting_url(employer_id: job_posting.employer_id, id: job_posting.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <tr>
+      <td>
+        <%= job_posting.position_name %>
+      </td>
+      <td>
+        <%= job_posting.position_desc %>
+      </td>
+      <td>
+        <%= job_posting.location %>
+      </td>
+      <td>
+        <%= job_posting.benefits %>
+      </td>
+      <td>
+        <%= job_posting.employer.name %>
+      </td>
+      <td>
+        <%= link_to 'Show', employer_job_posting_url(employer_id: job_posting.employer_id, id: job_posting.id) %>
+      </td>
+      <td>
+        <%= link_to 'Edit', edit_employer_job_posting_path(employer_id: job_posting.employer_id, id: job_posting.id) %>
+      </td>
+      <td>
+        <%= link_to 'Destroy', employer_job_posting_url(employer_id: job_posting.employer_id, id: job_posting.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
 <%= link_to 'New Employer', new_employer_url %>
-<%# <%= link_to 'New Job Posting', new_employer_job_posting_path %>
+<%= link_to 'New Job Posting', 'job_postings/new' %>
