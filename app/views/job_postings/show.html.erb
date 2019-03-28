@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<p id="notice">
+  <%= notice %>
+</p>
 
 <p>
   <strong>Position name:</strong>
@@ -22,8 +24,43 @@
 
 <p>
   <strong>Employer:</strong>
-  <%= link_to @job_posting.employer.name, employer_path(@job_posting.employer)%>
+  <%= link_to @job_posting.employer.name, employer_url(@job_posting.employer)%>
 </p>
 
-<%= link_to 'Edit', edit_employer_job_posting_path(@job_posting) %> |
+<%= link_to 'Edit', edit_job_posting_url(@job_posting) %> |
 <%= link_to 'Back', root_path %>
+
+<hr />
+
+<% if @job_posting.comments.empty? %>
+
+<p><strong>There are currently no comments for this post. Make one?</strong></p>
+
+<% else %>
+<h2> Comments: </h2>
+<% end %>
+
+<% @job_posting.comments.each do |comment| %>
+<p><strong>
+    <%= comment.title %></strong></p>
+<p>
+  <%= comment.body %>
+</p>
+<% end %>
+
+<%= form_with(model: [@job_posting, @job_posting.comments.new]) do |form| %>
+<div class="input-group">
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+</div>
+
+<div class="input-group">
+  <%= form.label :body %>
+  <%= form.text_area :body %>
+</div>
+
+<div class="actions">
+  <%= form.submit %>
+</div>
+
+<% end %>
