@@ -35,13 +35,13 @@
         <%= job_posting.employer.name %>
       </td>
       <td>
-        <%= link_to 'Show', employer_job_posting_url(employer_id: job_posting.employer_id, id: job_posting.id) %>
+        <%= link_to 'Show', job_posting_url(job_posting) %>
       </td>
       <td>
-        <%= link_to 'Edit', edit_employer_job_posting_path(employer_id: job_posting.employer_id, id: job_posting.id) %>
+        <%= link_to 'Edit', edit_job_posting_url(job_posting) %>
       </td>
       <td>
-        <%= link_to 'Destroy', employer_job_posting_url(employer_id: job_posting.employer_id, id: job_posting.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%= link_to 'Destroy', job_posting, method: :delete, data: { confirm: 'Are you sure?' } %>
       </td>
     </tr>
     <% end %>
