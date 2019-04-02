@@ -22,13 +22,29 @@
   <%= @job_posting.benefits %>
 </p>
 
+<%# logic for determining which links to display depending on the url of the page %>
+<%# will move logic to different pages instead %>
+
+<% if @admin %>
 <p>
   <strong>Employer:</strong>
-  <%= link_to @job_posting.employer.name, employer_url(@job_posting.employer)%>
+  <%= link_to @job_posting.employer.name, admin_employer_url(@job_posting.employer)%>
 </p>
 
-<%= link_to 'Edit', edit_job_posting_url(@job_posting) %> |
-<%= link_to 'Back', root_path %>
+<%= link_to 'Edit', edit_admin_job_posting_url(@job_posting) %> |
+<%= link_to 'Back', admin_job_postings_url %>
+
+<% else %>
+<p>
+  <strong>Employer:</strong>
+  <%= link_to @job_posting.employer.name, user_employer_url(@job_posting.employer)%>
+</p>
+
+<%= link_to 'Edit', edit_user_job_posting_url(@job_posting) %> |
+<%= link_to 'Back', user_job_postings_url %>
+
+<% end %>
+
 
 <hr />
 
@@ -48,7 +64,25 @@
 </p>
 <% end %>
 
-<%= form_with(model: [@job_posting, @job_posting.comments.new]) do |form| %>
+<% if @admin %>
+<%= form_with(model: [:admin ,@job_posting, @job_posting.comments.new] ) do |form| %>
+<div class="input-group">
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+</div>
+
+<div class="input-group">
+  <%= form.label :body %>
+  <%= form.text_area :body %>
+</div>
+
+<div class="actions">
+  <%= form.submit %>
+</div>
+<% end %>
+
+<% else %>
+<%= form_with(model: [:user ,@job_posting, @job_posting.comments.new] ) do |form| %>
 <div class="input-group">
   <%= form.label :title %>
   <%= form.text_field :title %>
@@ -63,4 +97,5 @@
   <%= form.submit %>
 </div>
 
+<% end %>
 <% end %>
