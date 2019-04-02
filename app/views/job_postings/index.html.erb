@@ -34,20 +34,37 @@
       <td>
         <%= job_posting.employer.name %>
       </td>
+      <% if @admin %>
       <td>
-        <%= link_to 'Show', job_posting_url(job_posting) %>
+        <%= link_to 'Show', admin_job_posting_url(job_posting) %>
       </td>
       <td>
-        <%= link_to 'Edit', edit_job_posting_url(job_posting) %>
+        <%= link_to 'Edit', edit_admin_job_posting_url(job_posting) %>
       </td>
       <td>
-        <%= link_to 'Destroy', job_posting, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%= link_to 'Destroy', admin_job_posting_url(job_posting), method: :delete, data: { confirm: 'Are you sure?' } %>
       </td>
+
+      <% else %>
+      <td>
+        <%= link_to 'Show', user_job_posting_url(job_posting) %>
+      </td>
+      <td>
+        <%= link_to 'Edit', user_job_posting_url(job_posting) %>
+      </td>
+      <% end %>
+
     </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-<%= link_to 'New Employer', new_employer_url %>
-<%= link_to 'New Job Posting', 'job_postings/new' %>
+<% if @admin %>
+<%= link_to 'New Employer', new_admin_employer_url %>
+<%= link_to 'New Job Posting', admin_job_postings_new_path %>
+
+<% else %>
+<%= link_to 'New Employer', new_user_employer_url %>
+<%= link_to 'New Job Posting', user_job_postings_new_path %>
+<% end %>
