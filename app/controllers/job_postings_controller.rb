@@ -1,5 +1,6 @@
 class JobPostingsController < ApplicationController
   before_action :set_job_posting, only: [:show, :edit, :update, :destroy]
+  before_action :is_admin
 
   # GET /
   # GET /job_postings.json
@@ -39,10 +40,19 @@ class JobPostingsController < ApplicationController
 
     respond_to do |format|
       if @job_posting.save
-        format.html { redirect_to root_url, notice: 'Job posting was successfully created.' }
+        if @admin
+        format.html { redirect_to admin_job_postings_path, notice: 'Job posting was successfully created.' }
+        else 
+        format.html { redirect_to user_job_postings_path, notice: 'Job posting was successfully created.' }
+        end
         format.json { render :show, status: :created, location: @job_posting }
       else
-        format.html { render :new }
+        if @admin
+        format.html { render [:admin, :new] }
+        
+        else
+          format.html { render [:user, :new] }
+        end
         format.json { render json: @job_posting.errors, status: :unprocessable_entity }
       end
     end
@@ -53,7 +63,11 @@ class JobPostingsController < ApplicationController
 
     respond_to do |format|
       if @job_posting.save
-        format.html { redirect_to root_url, notice: 'Job posting was successfully created.' }
+        if @admin
+          format.html { redirect_to admin_job_postings_path, notice: 'Job posting was successfully created.' }
+        else
+          format.html { redirect_to user_job_postings_path, notice: 'Job posting was successfully created.' }
+        end
         format.json { render :show, status: :created, location: @job_posting }
       else
         format.html { render 'new_with_unknown_employer' }
@@ -67,10 +81,14 @@ class JobPostingsController < ApplicationController
   def update
     respond_to do |format|
       if @job_posting.update(job_posting_params)
-        format.html { redirect_to @job_posting, notice: 'Job posting was successfully updated.' }
+        if @admin
+          format.html { redirect_to admin_job_posting_path(@job_posting), notice: 'Job posting was successfully updated.' }
+        else
+          format.html { redirect_to user_job_posting_path(@job_posting), notice: 'Job posting was successfully updated.' }
+        end
         format.json { render :show, status: :ok, location: @job_posting }
       else
-        format.html { render :edit }
+        format.html { render [:admin, :edit] }
         format.json { render json: @job_posting.errors, status: :unprocessable_entity }
       end
     end
@@ -81,7 +99,11 @@ class JobPostingsController < ApplicationController
   def destroy
     @job_posting.destroy
     respond_to do |format|
-      format.html { redirect_to root_url, notice: 'Job posting was successfully destroyed.' }
+      if @admin
+        format.html { redirect_to admin_job_postings_url, notice: 'Job posting was successfully destroyed.' }
+      else
+        format.html { redirect_to user_job_postings_url, notice: 'Job posting was successfully destroyed.' }
+      end
       format.json { head :no_content }
     end
   end
@@ -96,4 +118,10 @@ class JobPostingsController < ApplicationController
     def job_posting_params
       params.require(:job_posting).permit(:position_name, :position_desc, :location, :benefits, :employer_id)
     end
+
+    def is_admin
+      port = request.fullpath.split("/")[1]
+      @admin = (port == "admin")
+    end
+
 end
