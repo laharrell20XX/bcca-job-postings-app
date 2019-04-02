@@ -1,43 +1,95 @@
+<% if @admin %>
 
-<%= form_with(scope: :job_posting, url: employer_job_postings_path) do |form| %>
-  <% if job_posting.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(job_posting.errors.count, "error") %> prohibited this job_posting from being saved:</h2>
+<%= form_with(model: [:admin, job_posting]) do |form| %>
+<% if job_posting.errors.any? %>
+<div id="error_explanation">
+  <h2>
+    <%= pluralize(job_posting.errors.count, "error") %> prohibited this job_posting from being saved:</h2>
 
-      <ul>
-      <% job_posting.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <ul>
+    <% job_posting.errors.full_messages.each do |message| %>
+    <li>
+      <%= message %>
+    </li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
 
-  <div class="field">
-    <%= form.label :position_name %>
-    <%= form.text_field :position_name %>
-  </div>
+<div class="field">
+  <%= form.label :position_name %>
+  <%= form.text_field :position_name %>
+</div>
 
-  <div class="field">
-    <%= form.label :position_desc %>
-    <%= form.text_field :position_desc %>
-  </div>
+<div class="field">
+  <%= form.label :position_desc %>
+  <%= form.text_field :position_desc %>
+</div>
 
-  <div class="field">
-    <%= form.label :location %>
-    <%= form.text_field :location %>
-  </div>
+<div class="field">
+  <%= form.label :location %>
+  <%= form.text_field :location %>
+</div>
 
-  <div class="field">
-    <%= form.label :benefits %>
-    <%= form.text_field :benefits %>
-  </div>
+<div class="field">
+  <%= form.label :benefits %>
+  <%= form.text_field :benefits %>
+</div>
 
-  <div class="field">
-    
-    <%= form.hidden_field(:employer_id, value: employer.id) %>
-  </div> 
+<div class="field">
+  <%= form.hidden_field(:employer_id, value: job_posting.employer.id) %>
+</div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+<div class="actions">
+  <%= form.submit %>
+</div>
+<% end %>
+
+<% else %>
+
+<%= form_with(model: [:user, job_posting]) do |form| %>
+<% if job_posting.errors.any? %>
+<div id="error_explanation">
+  <h2>
+    <%= pluralize(job_posting.errors.count, "error") %> prohibited this job_posting from being saved:</h2>
+
+  <ul>
+    <% job_posting.errors.full_messages.each do |message| %>
+    <li>
+      <%= message %>
+    </li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="field">
+  <%= form.label :position_name %>
+  <%= form.text_field :position_name %>
+</div>
+
+<div class="field">
+  <%= form.label :position_desc %>
+  <%= form.text_field :position_desc %>
+</div>
+
+<div class="field">
+  <%= form.label :location %>
+  <%= form.text_field :location %>
+</div>
+
+<div class="field">
+  <%= form.label :benefits %>
+  <%= form.text_field :benefits %>
+</div>
+
+<div class="field">
+  <%= form.hidden_field(:employer_id, value: job_posting.employer.id) %>
+</div>
+
+<div class="actions">
+  <%= form.submit %>
+</div>
+<% end %>
+
 <% end %>
