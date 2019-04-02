@@ -1,5 +1,5 @@
 <% if @admin %>
-<%= form_with(model: [:admin, job_posting], url: {action: "create_with_unknown_employer"}) do |form| %>
+<%= form_with(scope: :job_posting, url: admin_job_postings_create_path) do |form| %>
 <% if job_posting.errors.any? %>
 <div id="error_explanation">
     <h2>
@@ -46,7 +46,7 @@
 
 <% else %>
 
-<%= form_with(model: [:user, job_posting], url: {action: "create_with_unknown_employer"}) do |form| %>
+<%= form_with(scope: :job_posting, url: user_job_postings_create_path) do |form| %>
 <% if job_posting.errors.any? %>
 <div id="error_explanation">
     <h2>
