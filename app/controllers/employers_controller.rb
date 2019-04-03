@@ -1,5 +1,6 @@
 class EmployersController < ApplicationController
   before_action :set_employer, only: [:show, :edit, :update, :destroy]
+  before_action :is_admin
 
   # GET /employers
   # GET /employers.json
@@ -28,7 +29,12 @@ class EmployersController < ApplicationController
 
     respond_to do |format|
       if @employer.save
-        format.html { redirect_to @employer, notice: 'Employer was successfully created.' }
+
+        if @admin
+          format.html { redirect_to admin_employer_path(@employer), notice: 'Employer was successfully created.' }
+        else
+          format.html { redirect_to user_employer_path(@employer), notice: 'Employer was successfully created.' }
+        end
         format.json { render :show, status: :created, location: @employer }
       else
         format.html { render :new }
@@ -42,7 +48,13 @@ class EmployersController < ApplicationController
   def update
     respond_to do |format|
       if @employer.update(employer_params)
-        format.html { redirect_to @employer, notice: 'Employer was successfully updated.' }
+
+        if @admin
+          format.html { redirect_to admin_employer_path(@employer), notice: 'Employer was successfully updated.' }
+        else
+          format.html {redirect_to user_employer_path(@employer), notice: 'Employer was successfully updated.'}
+        end
+
         format.json { render :show, status: :ok, location: @employer }
       else
         format.html { render :edit }
@@ -56,7 +68,11 @@ class EmployersController < ApplicationController
   def destroy
     @employer.destroy
     respond_to do |format|
-      format.html { redirect_to employers_url, notice: 'Employer was successfully destroyed.' }
+      if @admin
+        format.html { redirect_to admin_employers_path, notice: 'Employer was successfully destroyed.' }
+      else
+        format.html { redirect_to user_employers_path, notice: 'Employer was successfully destroyed.' }
+      end
       format.json { head :no_content }
     end
   end
@@ -70,5 +86,10 @@ class EmployersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def employer_params
       params.require(:employer).permit(:name, :company_desc, :employee_count, :logo_url, :industry, :founded_date, :headquarters_address)
+    end
+
+    def is_admin
+      port = request.fullpath.split("/")[1]
+      @admin = (port == "admin")
     end
 end
