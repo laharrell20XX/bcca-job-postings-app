@@ -1,5 +1,12 @@
-<h1>New Job Posting for <%= @employer.name %> </h1>
+<h1>New Job Posting for
+    <%= @employer.name %>
+</h1>
 
-<%= render 'form', job_posting: @job_posting, employer: @employer %>
+<%= render 'form', job_posting: @job_posting %>
 
-<%= link_to 'Back', employer_path(@employer) %>
+<% if @admin %>
+<%= link_to 'Back', admin_employer_path(@employer) %>
+
+<% else %>
+<%= link_to 'Back', user_employer_path(@employer) %>
+<% end %>
