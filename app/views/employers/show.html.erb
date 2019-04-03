@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<p id="notice">
+  <%= notice %>
+</p>
 
 <p>
   <strong>Name:</strong>
@@ -35,6 +37,16 @@
   <%= @employer.headquarters_address %>
 </p>
 
-<%= link_to 'Post a Job', new_employer_job_posting_path(employer_id: @employer.id)%> |
-<%= link_to 'Edit', edit_employer_path(@employer) %> |
-<%= link_to 'Back', employers_path %>
+<% if @admin %>
+
+<%= link_to 'Post a Job', new_admin_employer_job_posting_path(employer_id: @employer.id)%> |
+<%= link_to 'Edit', edit_admin_employer_path(@employer) %> |
+<%= link_to 'Back', admin_employers_path %>
+
+<% else %>
+
+<%= link_to 'Post a Job', new_user_employer_job_posting_path(employer_id: @employer.id)%> |
+<%= link_to 'Edit', edit_user_employer_path(@employer) %> |
+<%= link_to 'Back', user_employers_path %>
+
+<% end %>
