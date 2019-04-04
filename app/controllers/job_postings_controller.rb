@@ -2,14 +2,26 @@ class JobPostingsController < ApplicationController
   before_action :set_job_posting, only: [:show, :edit, :update, :destroy]
   before_action :is_admin
 
-  # GET /
+  # GET /:port/job_postings
   # GET /job_postings.json
   # for showing ALL job postings
   def index
-    @job_postings = JobPosting.all
+    @sort_query = params[:sort]
+    case @sort_query
+    when "O-N"
+      @job_postings = JobPosting.oldest_newest_created
+    when "N-O"
+      @job_postings = JobPosting.newest_oldest_created
+    when "Z-A"
+      @job_postings = JobPosting.reverse_alphabetically
+    when "A-Z"
+      @job_postings = JobPosting.alphabetically
+    else
+      @job_postings = JobPosting.all
+    end
   end
 
-  # for showing job pustings under an employer
+  # for showing job postings under an employer
   # def show_under_employer
 
   # end
