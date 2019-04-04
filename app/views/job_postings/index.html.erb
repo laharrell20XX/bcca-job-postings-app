@@ -4,80 +4,83 @@
 
 <h1>Job Postings</h1>
 
-<form>
-  <div class="form-control">
-    <input type="radio" name="sort" id="N-O-sort-button" value="N-O">
-    <label for="N-O">Newest - Oldest Created</label>
-  </div>
-  <div class="form-control">
-    <input type="radio" name="sort" id="O-N-sort-button" value="O-N">
-    <label for="O-N">Oldest - Newest Created</label>
-  </div>
-  <div class="form-control">
-    <input type="radio" name="sort" id="Z-A-sort-button" value="A-Z">
-    <label for="A-Z">Alphabetically</label>
-  </div>
-  <div class="form-control">
-    <input type="radio" name="sort" id="Z-A-sort-button" value="Z-A">
-    <label for="Z-A">Reverse Alphabetically</label>
-  </div>
-  <input type="submit" value="Sort">
-</form>
+<div id="job-postings-content">
+  <form id="job-postings-sorter">
+    <legend><strong>Sort By:</strong></legend>
+    <div class="field">
+      <input type="radio" name="sort" id="N-O-sort-button" value="N-O">
+      <label for="N-O">Newest - Oldest Created</label>
+    </div>
+    <div class="field">
+      <input type="radio" name="sort" id="O-N-sort-button" value="O-N">
+      <label for="O-N">Oldest - Newest Created</label>
+    </div>
+    <div class="field">
+      <input type="radio" name="sort" id="Z-A-sort-button" value="A-Z">
+      <label for="A-Z">Alphabetically</label>
+    </div>
+    <div class="field">
+      <input type="radio" name="sort" id="Z-A-sort-button" value="Z-A">
+      <label for="Z-A">Reverse Alphabetically</label>
+    </div>
+    <input type="submit" value="Sort">
+  </form>
 
-<table>
-  <thead>
-    <tr>
-      <th>Position name</th>
-      <th>Position desc</th>
-      <th>Location</th>
-      <th>Benefits</th>
-      <th>Employer</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <table>
+    <thead>
+      <tr>
+        <th>Position name</th>
+        <th>Position desc</th>
+        <th>Location</th>
+        <th>Benefits</th>
+        <th>Employer</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
 
-  <tbody>
-    <% @job_postings.each do |job_posting| %>
-    <tr>
-      <td>
-        <%= job_posting.position_name %>
-      </td>
-      <td>
-        <%= job_posting.position_desc %>
-      </td>
-      <td>
-        <%= job_posting.location %>
-      </td>
-      <td>
-        <%= job_posting.benefits %>
-      </td>
-      <td>
-        <%= job_posting.employer.name %>
-      </td>
-      <% if @admin %>
-      <td>
-        <%= link_to 'Show', admin_job_posting_url(job_posting) %>
-      </td>
-      <td>
-        <%= link_to 'Edit', edit_admin_job_posting_url(job_posting) %>
-      </td>
-      <td>
-        <%= link_to 'Destroy', admin_job_posting_url(job_posting), method: :delete, data: { confirm: 'Are you sure?' } %>
-      </td>
+    <tbody>
+      <% @job_postings.each do |job_posting| %>
+      <tr>
+        <td>
+          <%= job_posting.position_name %>
+        </td>
+        <td>
+          <%= job_posting.position_desc %>
+        </td>
+        <td>
+          <%= job_posting.location %>
+        </td>
+        <td>
+          <%= job_posting.benefits %>
+        </td>
+        <td>
+          <%= job_posting.employer.name %>
+        </td>
+        <% if @admin %>
+        <td>
+          <%= link_to 'Show', admin_job_posting_url(job_posting) %>
+        </td>
+        <td>
+          <%= link_to 'Edit', edit_admin_job_posting_url(job_posting) %>
+        </td>
+        <td>
+          <%= link_to 'Destroy', admin_job_posting_url(job_posting), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
 
-      <% else %>
-      <td>
-        <%= link_to 'Show', user_job_posting_url(job_posting) %>
-      </td>
-      <td>
-        <%= link_to 'Edit', edit_user_job_posting_url(job_posting) %>
-      </td>
+        <% else %>
+        <td>
+          <%= link_to 'Show', user_job_posting_url(job_posting) %>
+        </td>
+        <td>
+          <%= link_to 'Edit', edit_user_job_posting_url(job_posting) %>
+        </td>
+        <% end %>
+
+      </tr>
       <% end %>
-
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
 
 <br>
 <% if @admin %>
