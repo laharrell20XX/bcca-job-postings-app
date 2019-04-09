@@ -1,3 +1,63 @@
 // Place all the styles related to the JobPostings controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+div#job-postings-content {
+    display: flex;
+}
+
+form#job-postings-sorter {
+
+    .field {
+        display: flex;
+    }
+    legend {
+        margin-bottom: 5px;
+    }
+    margin-top: 3px;
+    margin-right: 3rem;
+}
+
+div#job-postings {
+    width: 50%;
+    border-left: 2px solid black;
+
+    a {
+        // &:hover {
+        //     background-color: rgb(180, 229, 245);
+        //     color: rgb(24, 24, 24);
+        // }
+        &:last-child {
+            border-bottom: none;
+        }
+        &:visited {
+            color: initial;
+        }
+
+        text-decoration: none;
+        padding: 1rem 0 0 1rem;
+        display: flex;
+        border-bottom: 2px solid black
+    }
+
+    a:hover {
+        background-color: rgb(180, 229, 245);
+        color: rgb(24, 24, 24);
+    }
+    
+    .job-posting-cell {
+
+        .job-posting-logo {
+            margin-right: 2rem;
+        }
+        .job-posting-title {
+            font-size: 1.2rem;
+        }
+        .job-posting-location {
+            color: rgb(88, 86, 86);
+        }
+        display: flex;
+    }
+    
+
+}
