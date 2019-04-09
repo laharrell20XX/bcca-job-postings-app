@@ -26,60 +26,35 @@
     <input type="submit" value="Sort">
   </form>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Position name</th>
-        <th>Position desc</th>
-        <th>Location</th>
-        <th>Benefits</th>
-        <th>Employer</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+  <div id="job-postings">
 
-    <tbody>
-      <% @job_postings.each do |job_posting| %>
-      <tr>
-        <td>
-          <%= job_posting.position_name %>
-        </td>
-        <td>
-          <%= job_posting.position_desc %>
-        </td>
-        <td>
-          <%= job_posting.location %>
-        </td>
-        <td>
-          <%= job_posting.benefits %>
-        </td>
-        <td>
-          <%= job_posting.employer.name %>
-        </td>
-        <% if @admin %>
-        <td>
-          <%= link_to 'Show', admin_job_posting_url(job_posting) %>
-        </td>
-        <td>
-          <%= link_to 'Edit', edit_admin_job_posting_url(job_posting) %>
-        </td>
-        <td>
-          <%= link_to 'Destroy', admin_job_posting_url(job_posting), method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
+    <% @job_postings.each do |job_posting| %>
+    <% employer = job_posting.employer %>
 
-        <% else %>
-        <td>
-          <%= link_to 'Show', user_job_posting_url(job_posting) %>
-        </td>
-        <td>
-          <%= link_to 'Edit', edit_user_job_posting_url(job_posting) %>
-        </td>
-        <% end %>
+    <a href='<%= user_job_posting_url(job_posting) %>'>
+      <div class="job-posting-cell">
+        <div class="job-posting-logo">
+          <%= employer.logo_url %>
+        </div>
 
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+        <div class="job-posting-info">
+          <p class="job-posting-title">
+            <strong>
+              <%= job_posting.position_name %></strong>
+          </p>
+          <p class="job-posting-employer">
+            <%= employer.name %>
+          </p>
+          <p class="job-posting-location">
+            <%= job_posting.location %>
+          </p>
+        </div>
+      </div>
+    </a>
+    <% end %>
+
+  </div>
+
 </div>
 
 <br>
